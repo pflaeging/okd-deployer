@@ -1,0 +1,90 @@
+# Create an OSEv3 group that contains the masters, nodes, and etcd groups
+[OSEv3:children]
+masters
+nodes
+etcd
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+# SSH user, this user should allow ssh based auth without requiring a password
+ansible_ssh_user=root
+
+# If ansible_ssh_user is not root, ansible_become must be set to true
+#ansible_become=true
+
+# OKD type
+openshift_deployment_type=origin
+containerized=true
+openshift_enable_unsupported_configurations=True
+
+# node config
+openshift_node_groups=[{'name': 'node-config-all-in-one', 'labels': ['node-role.kubernetes.io/master=true', 'node-role.kubernetes.io/infra=true', 'node-role.kubernetes.io/compute=true']}]
+
+# don't check!
+openshift_disable_check=disk_availability,memory_availability
+
+# hostnames
+openshift_master_default_subdomain=frodo.pflaeging.net
+openshift_master_cluster_public_hostname=frodo.pflaeging.net
+openshift_console_hostname=console.frodo.pflaeging.net
+
+# certificates
+# openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "names": ["frodo.pflaeging.net"], "cafile": "/opt/okd/certs/ca_bundle.crt"}]
+openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "cafile": "/opt/okd/certs/ca_bundle.crt"}]
+
+# for console
+openshift_console_cert=/opt/okd/certs/certificate.crt
+openshift_console_key=/opt/okd/certs/private.key
+openshift_console_ca=/opt/okd/certs/ca_bundle.crt
+
+
+# Identities
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+openshift_master_htpasswd_file=/opt/okd/htpasswd
+
+# registry NFS
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_host=frea.pflaeging.net
+openshift_hosted_registry_storage_nfs_directory=/exports
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=10Gi
+openshift_metrics_storage_labels={'storage': 'registry'}
+
+# deploy metrics
+openshift_metrics_install_metrics=true
+openshift_metrics_server_install=true
+
+openshift_metrics_storage_kind=nfs
+openshift_metrics_storage_access_modes=['ReadWriteOnce']
+openshift_metrics_storage_host=frea.pflaeging.net
+openshift_metrics_storage_nfs_directory=/exports
+openshift_metrics_storage_volume_name=metrics
+openshift_metrics_storage_volume_size=10Gi
+openshift_metrics_storage_labels={'storage': 'metrics'}
+
+# Logging
+openshift_logging_install_logging=true
+openshift_logging_storage_kind=nfs
+openshift_logging_storage_access_modes=['ReadWriteOnce']
+openshift_logging_storage_host=frea.pflaeging.net
+openshift_logging_storage_nfs_directory=/exports
+openshift_logging_storage_volume_name=logging
+openshift_logging_storage_volume_size=10Gi
+openshift_logging_storage_labels={'storage': 'logging'}
+
+
+
+
+# host group for masters
+[masters]
+frea.pflaeging.net
+
+# host group for etcd
+[etcd]
+frea.pflaeging.net
+
+# host group for nodes, includes region info
+[nodes]
+frea.pflaeging.net openshift_node_group_name='node-config-all-in-one'
+
