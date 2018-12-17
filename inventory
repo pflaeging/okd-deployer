@@ -31,7 +31,10 @@ openshift_console_hostname=console.frodo.pflaeging.net
 # certificates
 # openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "names": ["frodo.pflaeging.net"], "cafile": "/opt/okd/certs/ca_bundle.crt"}]
 openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "cafile": "/opt/okd/certs/ca_bundle.crt"}]
-
+# Router Certs
+openshift_hosted_router_certificate={"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "cafile": "/opt/okd/certs/ca_bundle.crt"}
+# no expiry warning for letsencrypt
+openshift_certificate_expiry_fail_on_warn=False
 # for console
 openshift_console_cert=/opt/okd/certs/certificate.crt
 openshift_console_key=/opt/okd/certs/private.key
