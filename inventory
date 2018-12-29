@@ -18,18 +18,17 @@ containerized=true
 openshift_enable_unsupported_configurations=True
 
 # node config
-openshift_node_groups=[{'name': 'node-config-all-in-one', 'labels': ['node-role.kubernetes.io/master=true', 'node-role.kubernetes.io/infra=true', 'node-role.kubernetes.io/compute=true']}]
+openshift_node_groups=[{'name': 'node-config-all-in-one', 'labels': ['node-role.kubernetes.io/master=true', 'node-role.kubernetes.io/infra=true', 'node-role.kubernetes.io/compute=true']},{'name': 'node-config-combi-node', 'labels': ['node-role.kubernetes.io/infra=true', 'node-role.kubernetes.io/compute=true']}]
 
 # don't check!
-openshift_disable_check=disk_availability,memory_availability
+openshift_disable_check=disk_availability,memory_availability,docker_storage
 
 # hostnames
-openshift_master_default_subdomain=frodo.pflaeging.net
-openshift_master_cluster_public_hostname=frodo.pflaeging.net
-openshift_console_hostname=console.frodo.pflaeging.net
+openshift_master_default_subdomain=rohan.pfpk.pro
+openshift_master_cluster_public_hostname=rohan.pfpk.pro
+openshift_console_hostname=console.rohan.pfpk.pro
 
 # certificates
-# openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "names": ["frodo.pflaeging.net"], "cafile": "/opt/okd/certs/ca_bundle.crt"}]
 openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "cafile": "/opt/okd/certs/ca_bundle.crt"}]
 # Router Certs
 openshift_hosted_router_certificate={"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "cafile": "/opt/okd/certs/ca_bundle.crt"}
@@ -48,9 +47,9 @@ openshift_master_htpasswd_file=/opt/okd/htpasswd
 # registry NFS
 openshift_hosted_registry_storage_kind=nfs
 openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
-openshift_hosted_registry_storage_host=frea.pflaeging.net
+openshift_hosted_registry_storage_host=nfs1.pfpk.pro
 openshift_hosted_registry_storage_nfs_directory=/exports
-openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_name=registry-rohan
 openshift_hosted_registry_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'registry'}
 
@@ -60,9 +59,9 @@ openshift_metrics_server_install=true
 
 openshift_metrics_storage_kind=nfs
 openshift_metrics_storage_access_modes=['ReadWriteOnce']
-openshift_metrics_storage_host=frea.pflaeging.net
+openshift_metrics_storage_host=nfs1.pfpk.pro
 openshift_metrics_storage_nfs_directory=/exports
-openshift_metrics_storage_volume_name=metrics
+openshift_metrics_storage_volume_name=metrics-rohan
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'metrics'}
 
@@ -70,9 +69,9 @@ openshift_metrics_storage_labels={'storage': 'metrics'}
 openshift_logging_install_logging=true
 openshift_logging_storage_kind=nfs
 openshift_logging_storage_access_modes=['ReadWriteOnce']
-openshift_logging_storage_host=frea.pflaeging.net
+openshift_logging_storage_host=nfs1.pfpk.pro
 openshift_logging_storage_nfs_directory=/exports
-openshift_logging_storage_volume_name=logging
+openshift_logging_storage_volume_name=logging-rohan
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
@@ -81,13 +80,15 @@ openshift_logging_storage_labels={'storage': 'logging'}
 
 # host group for masters
 [masters]
-frea.pflaeging.net
+hurin.pfpk.pro
 
 # host group for etcd
 [etcd]
-frea.pflaeging.net
+hurin.pfpk.pro
 
 # host group for nodes, includes region info
 [nodes]
-frea.pflaeging.net openshift_node_group_name='node-config-all-in-one'
+cirdan.pfpk.pro openshift_node_group_name='node-config-combi-node'
+frea.pfpk.pro openshift_node_group_name='node-config-combi-node'
+hurin.pfpk.pro openshift_node_group_name='node-config-all-in-one'
 

@@ -1,0 +1,5 @@
+yum install epel-release
+yum remove docker-ce
+yum install pyOpenSSL java-1.8.0-openjdk-headless
+yum install wget git ansible
+
