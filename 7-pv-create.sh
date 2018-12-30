@@ -1,18 +1,26 @@
 #!/bin/bash
 
-# Creates PVs on master node
+# Creates PVs from master node with NFS
+# needs definitions from ./environment.sh
+# starts with number STARTWITH and generates COUNT 
+# PV's -> one pvo for readOnce and one pvm for readMany
+#
+# <peter@pflaeging.net>
 
-SERVER=`hostname`
+. ./environment.sh
+
 COUNT=50
+STARTWITH=1
 
-sudo mkdir -p /exports
-sudo chmod 777 /exports
-sudo chown nfsnobody:nfsnobody /exports
+ssh root@$NFSSERVER "mkdir -p -m 777 $NFSDIR"
+ssh root@$NFSSERVER "chown nfsnobody:nfsnobody $NFSDIR"
 
 oc project default
 
-for i in $(seq 1 $COUNT); do
-    PV=$(cat <<EOF
+for i in $(seq $STARTWITH $COUNT); do
+    EXPORTMDIR=$NFSDIR/pvm$(printf %04d $i)
+    EXPORTODIR=$NFSDIR/pvo$(printf %04d $i)
+    PVM=$(cat <<EOF
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -24,14 +32,10 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Recycle
   nfs:
-    server: $SERVER
-    path: /exports/pvm$(printf %04d $i)
+    server: $NFSSERVER
+    path: $EXPORTMDIR
 EOF
 )
-    echo "$PV" | oc create -f -
-    sudo mkdir -p /exports/pvm$(printf %04d $i)
-    sudo chmod 777 /exports/pvm$(printf %04d $i)
-    sudo chown nfsnobody:nfsnobody /exports/pvm$(printf %04d $i)
     PVO=$(cat <<EOF
 apiVersion: v1
 kind: PersistentVolume
@@ -44,12 +48,12 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   nfs:
-    server: $SERVER
-    path: /exports/pvo$(printf %04d $i)
+    server: $NFSSERVER
+    path: $EXPORTODIR
 EOF
 )
+    echo "$PVM" | oc create -f -
     echo "$PVO" | oc create -f -
-    sudo mkdir -p /exports/pvo$(printf %04d $i)
-    sudo chmod 777 /exports/pvo$(printf %04d $i)
-    sudo chown nfsnobody:nfsnobody /exports/pvo$(printf %04d $i)
+    ssh root@$NFSSERVER "mkdir -p -m 777 $EXPORTMDIR $EXPORTODIR"
+    ssh root@$NFSSERVER "chown nfsnobody:nfsnobody $EXPORTMDIR $EXPORTODIR"
 done

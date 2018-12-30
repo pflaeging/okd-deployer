@@ -1,7 +1,9 @@
 #! /bin/sh
 
-EXPORT_DIRS="registry metrics logging"
-cd /exports
-mkdir $EXPORT_DIRS
-chown nfsnobody:nfsnobody $EXPORT_DIRS
-chmod 777 $EXPORT_DIRS
+. ./environment.sh
+
+ssh root@$NFSSERVER "mkdir -p -m 777 $NFSDIR/registry-$CLUSTERNAME"
+ssh root@$NFSSERVER "mkdir -p -m 777 $NFSDIR/metrics-$CLUSTERNAME"
+ssh root@$NFSSERVER "mkdir -p -m 777 $NFSDIR/logging-$CLUSTERNAME"
+ssh root@$NFSSERVER "cd $NFSDIR; chown nfsnobody:nfsnobody *-$CLUSTERNAME"
+
