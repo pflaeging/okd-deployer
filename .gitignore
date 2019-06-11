@@ -1,3 +1,6 @@
 certs/ca_bundle.crt
 certs/certificate.crt
 certs/private.key
+infrasprint-1/openshift-ansible-patcher.sh
+infrasprint-1/pull+push.sh
+openshift-ansible/

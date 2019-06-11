@@ -44,6 +44,13 @@ After this you can reenable the "--selinux-enabled" again (don't forget ```syste
 
 Login after this with "admin" and the password from the harbor.yml file!
 
+Create public projects: 
+
+- coreos
+- openshift
+- grafana
+- cockpit
+
 # OKD install
 
 ```sh
@@ -64,6 +71,14 @@ rm ansible-2.7.9-1.el7.ans.noarch.rpm
 mv inventory inventory-online
 cp inventory-airgap inventory
 ```
+
+## preload the harbor registry
+
+- execute the python script in infrasprint-1/.
+- copy openshift-ansible-patcher.sh to okd-deployer main and execute it
+- copy pull+push.sh to a gateway host and execute it
+
+## install
 
 Try to ssh to cluster members as root to root.
 
