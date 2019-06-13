@@ -84,6 +84,10 @@ in inventory:
 - ip ranges
 - certificate paths
 
+Double check if all images are in local registry and add the following to the variable 
+```openshift_disable_check```: ```docker_image_availability```.
+(This is due to problems with skopeo and some registry configs. You can try to pull the images on one of the machines with ```docker pull```).
+
 in environment.sh:
 
 - clustername
