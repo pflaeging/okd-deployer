@@ -27,6 +27,9 @@ openshift_disable_check=disk_availability,memory_availability,docker_storage
 openshift_master_default_subdomain=rohan.pfpk.pro
 openshift_master_cluster_public_hostname=rohan.pfpk.pro
 openshift_console_hostname=console.rohan.pfpk.pro
+# internal cluster ip ranges
+osm_cluster_network_cidr=10.244.0.0/16
+openshift_portal_net=10.245.0.0/16
 
 # certificates
 openshift_master_named_certificates=[{"certfile": "/opt/okd/certs/certificate.crt", "keyfile": "/opt/okd/certs/private.key", "cafile": "/opt/okd/certs/ca_bundle.crt"}]

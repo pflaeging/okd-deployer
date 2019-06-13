@@ -54,7 +54,7 @@ Create public projects:
 # OKD install
 
 ```sh
-yum install -y centos-release-openshift-origin311 yum-utils java-1.8.0-openjdk-headless
+yum install -y centos-release-openshift-origin311 yum-utils java-1.8.0-openjdk-headless "@Development Tools"
 mkdir /opt/centos-origin-rpms
 cd /opt/centos-origin-rpms
 reposync --repoid=centos-openshift-origin311
@@ -71,6 +71,46 @@ rm ansible-2.7.9-1.el7.ans.noarch.rpm
 mv inventory inventory-online
 cp inventory-airgap inventory
 ```
+
+## Customize config
+
+in inventory:
+
+- hostnames
+- nodes
+- masters
+- etcd hosts
+- nfs config
+- ip ranges
+- certificate paths
+
+in environment.sh:
+
+- clustername
+- nfs config like in inventory
+
+On all clients:
+
+```sh
+yum install -y java-1.8.0-openjdk-headless docker
+```
+
+## Patch docker config on all systems:
+
+### /etc/sysconfig/docker-network
+
+```
+DOCKER_NETWORK_OPTIONS='--mtu=1450 --bip=192.168.25.1/24'
+```
+
+### /etc/docker/daemon.json
+
+```json
+{
+  "insecure-registries" : [ "bastion-host.my.domain" ]
+}
+```
+
 
 ## preload the harbor registry
 
