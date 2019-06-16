@@ -32,6 +32,9 @@ Start with
 ```sh
 tar -xvzpf sonobuoy_0.14.3_linux_amd64.tar.gz
 ./sonobuoy run --wait --skip-preflight
+results=$(./sonobuoy retrieve)
+ ./sonobuoy e2e $results
+ ./sonsbuyoy logs
 ```
 
 ## Update Certs for cluster
@@ -44,3 +47,4 @@ tar -xvzpf sonobuoy_0.14.3_linux_amd64.tar.gz
 Complete doc https://docs.openshift.com/container-platform/3.11/install_config/redeploying_certificates.html
 
 ## Discuss OpenID config options
+
