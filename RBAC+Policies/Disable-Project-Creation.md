@@ -77,4 +77,4 @@ In the part "projectConfig" overwrite "ProjectRequestMessage" with your own text
 
 ## Additional files
 
-For reference: self-provisioners-clusterrolebinding-default.yaml in this directory!
+For reference: [self-provisioners-clusterrolebinding-default.yaml](./self-provisioners-clusterrolebinding-default.yaml) in this directory!
