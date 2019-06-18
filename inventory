@@ -54,7 +54,7 @@ openshift_master_htpasswd_file=/opt/okd-deployer/htpasswd
 ## Where do we get the images from:
 oreg_url=reg.pflaeging.net/openshift/origin-${component}:${version}
 openshift_examples_modify_imagestreams=true
-openshift_cockpit_deployer_image='reg.pflaeging.net/openshift/origin-console:v3.11'
+openshift_cockpit_deployer_image='reg.pflaeging.net/cockpit/kubernetes:latest'
 openshift_web_console_prefix='reg.pflaeging.net/openshift/origin-'
 openshift_service_catalog_image_prefix='reg.pflaeging.net/openshift/origin-'
 ansible_service_broker_image_prefix='reg.pflaeging.net/openshift/origin-'

@@ -88,6 +88,20 @@ Double check if all images are in local registry and add the following to the va
 ```openshift_disable_check```: ```docker_image_availability```.
 (This is due to problems with skopeo and some registry configs. You can try to pull the images on one of the machines with ```docker pull```).
 
+Insert and set the following variables appropriate in ```[OSEv3:vars]```
+
+```init
+# Images for airgap
+## Where do we get the images from:
+oreg_url=reg.pflaeging.net/openshift/origin-${component}:${version}
+openshift_examples_modify_imagestreams=true
+openshift_cockpit_deployer_image='reg.pflaeging.net/cockpit/kubernetes:latest'
+openshift_web_console_prefix='reg.pflaeging.net/openshift/origin-'
+openshift_service_catalog_image_prefix='reg.pflaeging.net/openshift/origin-'
+ansible_service_broker_image_prefix='reg.pflaeging.net/openshift/origin-'
+template_service_broker_prefix='reg.pflaeging.net/openshift/origin-'
+```
+
 in environment.sh:
 
 - clustername
@@ -127,4 +141,3 @@ DOCKER_NETWORK_OPTIONS='--mtu=1450 --bip=192.168.25.1/24'
 Try to ssh to cluster members as root to root.
 
 Now try the 7 step installer from one directory up!
-
