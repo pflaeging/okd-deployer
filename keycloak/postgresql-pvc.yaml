@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    net.pflaeging.vc: postgresql
+    net.pflaeging.instance: idptest-stickiebox
+  name: idptest-stickiebox-pg-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  selector:
+    matchLabels:
+      net.pflaeging.instance: idptest-stickiebox
+      net.pflaeging.volumetype: postgresql
+status: {}

@@ -1,0 +1,16 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: idptest-stickiebox-postgresql
+  labels:
+    net.pflaeging.instance: idptest-stickiebox
+    net.pflaeging.volumetype: postgresql
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: nfs1.pfpk.pro
+    path: /exports/idptest-stickiebox-postgresql

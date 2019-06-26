@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: idptest-stickiebox
+  labels:
+    net.pflaeging.configmap: keycloak
+    net.pflaeging.instance: idptest-stickiebox
+data:
+  DB_VENDOR: POSTGRES
+  DB_ADDR: idptest-stickiebox-postgresql
+  DB_DATABASE: keycloak
+  DB_USER: keycloak
+  DB_PASSWORD: KeyCloak
+  KEYCLOAK_USER: admin
+  KEYCLOAK_PASSWORD: AdMin
+  PROXY_ADDRESS_FORWARDING: 'true'
+  POSTGRESQL_DATABASE: keycloak
+  POSTGRESQL_PASSWORD: KeyCloak
+  POSTGRESQL_USER: keycloak
