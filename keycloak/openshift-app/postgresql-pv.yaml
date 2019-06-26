@@ -1,9 +1,9 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: idptest-stickiebox-postgresql
+  name: system-keycloak-postgresql
   labels:
-    net.pflaeging.instance: idptest-stickiebox
+    net.pflaeging.instance: system-keycloak
     net.pflaeging.volumetype: postgresql
 spec:
   capacity:
@@ -13,4 +13,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: nfs1.pfpk.pro
-    path: /exports/idptest-stickiebox-postgresql
+    path: /exports/system-keycloak-postgresql.lothlorien.pfpk.pro

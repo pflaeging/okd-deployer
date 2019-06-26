@@ -4,8 +4,8 @@ metadata:
   creationTimestamp: null
   labels:
     net.pflaeging.vc: postgresql
-    net.pflaeging.instance: idptest-stickiebox
-  name: idptest-stickiebox-pg-data
+    net.pflaeging.instance: system-keycloak
+  name: system-keycloak-pg-data
 spec:
   accessModes:
   - ReadWriteOnce
@@ -14,6 +14,6 @@ spec:
       storage: 500Mi
   selector:
     matchLabels:
-      net.pflaeging.instance: idptest-stickiebox
+      net.pflaeging.instance: system-keycloak
       net.pflaeging.volumetype: postgresql
 status: {}

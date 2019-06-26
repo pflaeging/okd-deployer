@@ -4,38 +4,45 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
   creationTimestamp: null
-  generation: 9
+  generation: 1
   labels:
-    net.pflaeging.deployment: idptest-stickiebox-keycloak
-  name: idptest-stickiebox-keycloak
+    net.pflaeging.deployment: system-keycloak-postgresql
+  name: system-keycloak-postgresql
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      net.pflaeging.deployment: idptest-stickiebox-keycloak
+      net.pflaeging.deployment: system-keycloak-postgresql
   strategy:
     type: Recreate
   template:
     metadata:
       creationTimestamp: null
       labels:
-        net.pflaeging.deployment: idptest-stickiebox-keycloak
+        net.pflaeging.deployment: system-keycloak-postgresql
     spec:
       containers:
       - envFrom:
         - configMapRef:
-            name: idptest-stickiebox 
-        image: docker-registry.default.svc:5000/sb/keycloak:latest
+            name: system-keycloak
+        image: reg.pflaeging.net/stickiebox/postgresql:latest
         imagePullPolicy: Always
-        name: keycloak
+        name: keycloak-db
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/pgsql/data
+          name: system-keycloak-pg-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      volumes:
+      - name: system-keycloak-pg-data
+        persistentVolumeClaim:
+          claimName: system-keycloak-pg-data
 status: {}

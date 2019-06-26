@@ -4,8 +4,8 @@ metadata:
   creationTimestamp: null
   labels:
     net.pflaeging.service: keycloak
-    net.pflaeging.instance: idptest-stickiebox
-  name: idptest-stickiebox-keycloak
+    net.pflaeging.instance: system-keycloak
+  name: system-keycloak-keycloak
 spec:
   ports:
   - name: 8080-tcp
@@ -13,7 +13,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    net.pflaeging.deployment: idptest-stickiebox-keycloak
+    net.pflaeging.deployment: system-keycloak-keycloak
   sessionAffinity: None
   type: ClusterIP
 status:

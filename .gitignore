@@ -1,6 +1,7 @@
 certs/ca_bundle.crt
 certs/certificate.crt
 certs/private.key
+certs/bundle.pem
 infrasprint-1/openshift-ansible-patcher.sh
 infrasprint-1/pull+push.sh
 openshift-ansible/

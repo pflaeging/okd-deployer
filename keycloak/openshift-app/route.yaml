@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  creationTimestamp: null
+  labels:
+    net.pflaeging.route: system-keycloak-keycloak
+  name: system-keycloak-keycloak
+spec:
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  to:
+    kind: Service
+    name: system-keycloak-keycloak
+    weight: 100
+  wildcardPolicy: None
+status: {}
