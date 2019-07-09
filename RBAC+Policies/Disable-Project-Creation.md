@@ -34,40 +34,40 @@ rules:
   - create
 ```
 
-ClusterRoleBinding self-provisioners: ```oc get clusterrolebinding self-provisioners -o yaml```
+ClusterRoleBinding self-provisioners: ```oc get clusterrolebinding.rbac self-provisioners -o yaml```
 
 ```yaml
-apiVersion: authorization.openshift.io/v1
-groupNames:
-- system:authenticated:oauth
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   annotations:
-    openshift.io/reconcile-protect: "false"
-  creationTimestamp: 2019-06-14T21:31:01Z
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  creationTimestamp: 2018-12-29T16:16:51Z
   name: self-provisioners
-  resourceVersion: "250"
-  selfLink: /apis/authorization.openshift.io/v1/clusterrolebindings/self-provisioners
-  uid: b4c36a52-8eeb-11e9-ae0e-e66952204b37
+  resourceVersion: "27691546"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/self-provisioners
+  uid: 26a93980-0b85-11e9-a275-5a9c3c3f87d7
 roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
   name: self-provisioner
 subjects:
-- kind: SystemGroup
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
   name: system:authenticated:oauth
-userNames: null
 ```
 
 There's no function to show system groups :-(
 
-## Disable self-provisioning 
+## Disable self-provisioning
 
  Set Autoupdate to false:
 
- ```oc patch clusterrolebinding self-provisioners -p '{ "metadata": { "annotations": { "rbac.authorization.kubernetes.io/autoupdate": "false" } } }'```
+ ```oc annotate clusterrolebinding.rbac self-provisioners "rbac.authorization.kubernetes.io/autoupdate=false" --overwrite```
 
 Remove member groups:
 
-```oc patch clusterrolebinding self-provisioners -p '{"subjects": null}'```
+```oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated:oauth```
 
 ## Optional 
 
