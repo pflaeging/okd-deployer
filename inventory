@@ -25,46 +25,46 @@ openshift_node_groups=[{'name': 'node-config-all-in-one', 'labels': ['node-role.
 openshift_disable_check=disk_availability,memory_availability,docker_storage
 
 # hostnames
-openshift_master_default_subdomain=lothlorien.pfpk.pro
-openshift_master_cluster_public_hostname=lothlorien.pfpk.pro
-openshift_console_hostname=console.lothlorien.pfpk.pro
+openshift_master_default_subdomain=okd-poc.novomatic.com
+openshift_master_cluster_public_hostname=okd-poc.novomatic.com
+openshift_console_hostname=console.okd-poc.novomatic.com
 # internal cluster ip ranges
-osm_cluster_network_cidr=10.244.0.0/16
-openshift_portal_net=10.245.0.0/16
+# osm_cluster_network_cidr=10.244.0.0/16
+# openshift_portal_net=10.245.0.0/16
 
 # certificates
-openshift_master_named_certificates=[{"certfile": "/opt/okd-deployer/certs/certificate.crt", "keyfile": "/opt/okd-deployer/certs/private.key", "cafile": "/opt/okd-deployer/certs/ca_bundle.crt"}]
+### openshift_master_named_certificates=[{"certfile": "/opt/novomatic-poc/certs/certificate.crt", "keyfile": "/opt/novomatic-poc/certs/private.key", "cafile": "/opt/novomatic-poc/certs/ca_bundle.crt"}]
 # Router Certs
-openshift_hosted_router_certificate={"certfile": "/opt/okd-deployer/certs/certificate.crt", "keyfile": "/opt/okd-deployer/certs/private.key", "cafile": "/opt/okd-deployer/certs/ca_bundle.crt"}
+### openshift_hosted_router_certificate={"certfile": "/opt/novomatic-poc/certs/certificate.crt", "keyfile": "/opt/novomatic-poc/certs/private.key", "cafile": "/opt/novomatic-poc/certs/ca_bundle.crt"}
 # no expiry warning for letsencrypt
-openshift_certificate_expiry_fail_on_warn=False
+### openshift_certificate_expiry_fail_on_warn=False
 # for console
-openshift_console_cert=/opt/okd-deployer/certscertificate.crt
-openshift_console_key=/opt/okd-deployer/certs/private.key
-openshift_console_ca=/opt/okd-deployer/certs/ca_bundle.crt
+### openshift_console_cert=/opt/novomatic-poc/certs/certificate.crt
+### openshift_console_key=/opt/novomatic-poc/certs/private.key
+### openshift_console_ca=/opt/novomatic-poc/certs/ca_bundle.crt
 
 
 # Identities
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
-openshift_master_htpasswd_file=/opt/okd-deployer/htpasswd
+openshift_master_htpasswd_file=/opt/novomatic-poc/htpasswd
 
 
 
 # Images for airgap
 ## Where do we get the images from:
-oreg_url=reg.pflaeging.net/openshift/origin-${component}:${version}
-openshift_examples_modify_imagestreams=true
-openshift_cockpit_deployer_image='reg.pflaeging.net/cockpit/kubernetes:latest'
-openshift_web_console_prefix='reg.pflaeging.net/openshift/origin-'
-openshift_service_catalog_image_prefix='reg.pflaeging.net/openshift/origin-'
-ansible_service_broker_image_prefix='reg.pflaeging.net/openshift/origin-'
-template_service_broker_prefix='reg.pflaeging.net/openshift/origin-'
+#oreg_url=reg.pflaeging.net/openshift/origin-${component}:${version}
+#openshift_examples_modify_imagestreams=true
+#openshift_cockpit_deployer_image='reg.pflaeging.net/cockpit/kubernetes:latest'
+#openshift_web_console_prefix='reg.pflaeging.net/openshift/origin-'
+#openshift_service_catalog_image_prefix='reg.pflaeging.net/openshift/origin-'
+#ansible_service_broker_image_prefix='reg.pflaeging.net/openshift/origin-'
+#template_service_broker_prefix='reg.pflaeging.net/openshift/origin-'
 
 # registry NFS
 openshift_hosted_registry_storage_kind=nfs
 openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
-openshift_hosted_registry_storage_host=nfs1.pfpk.pro
-openshift_hosted_registry_storage_nfs_directory=/exports
+openshift_hosted_registry_storage_host=okd-manage.novomatic.com
+openshift_hosted_registry_storage_nfs_directory=/nfs
 openshift_hosted_registry_storage_volume_name=registry-lothlorien
 openshift_hosted_registry_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'registry'}
@@ -75,8 +75,8 @@ openshift_metrics_server_install=true
 
 openshift_metrics_storage_kind=nfs
 openshift_metrics_storage_access_modes=['ReadWriteOnce']
-openshift_metrics_storage_host=nfs1.pfpk.pro
-openshift_metrics_storage_nfs_directory=/exports
+openshift_metrics_storage_host=okd-manage.novomatic.com
+openshift_metrics_storage_nfs_directory=/nfs
 openshift_metrics_storage_volume_name=metrics-lothlorien
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'metrics'}
@@ -85,25 +85,24 @@ openshift_metrics_storage_labels={'storage': 'metrics'}
 openshift_logging_install_logging=true
 openshift_logging_storage_kind=nfs
 openshift_logging_storage_access_modes=['ReadWriteOnce']
-openshift_logging_storage_host=nfs1.pfpk.pro
-openshift_logging_storage_nfs_directory=/exports
+openshift_logging_storage_host=okd-manage.novomatic.com
+openshift_logging_storage_nfs_directory=/nfs
 openshift_logging_storage_volume_name=logging-lothlorien
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
-
-
-
 # host group for masters
 [masters]
-ostoher.pfpk.pro
+okd-cluster-nd1.novomatic.com
+okd-cluster-nd2.novomatic.com
 
 # host group for etcd
 [etcd]
-ostoher.pfpk.pro
+okd-cluster-nd1.novomatic.com
+okd-cluster-nd2.novomatic.com
 
 # host group for nodes, includes region info
 [nodes]
-isildur.pfpk.pro openshift_node_group_name='node-config-combi-node'
-ostoher.pfpk.pro openshift_node_group_name='node-config-all-in-one'
+okd-cluster-nd3.novomatic.com openshift_node_group_name='node-config-combi-node'
+okd-cluster-nd4.novomatic.com openshift_node_group_name='node-config-combi-node'
 

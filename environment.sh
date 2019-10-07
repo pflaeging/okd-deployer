@@ -1,8 +1,8 @@
 #! /bin/sh
 
-NFSSERVER=nfs1.pfpk.pro
-NFSDIR=/exports
+NFSSERVER=okd-manage.novomatic.com
+NFSDIR=/nfs
 
-CLUSTERNAME=lothlorien.pfpk.pro
+CLUSTERNAME=okd-poc.novomatic.com
 
 export NFSSERVER NFSDIR CLUSTERNAME
