@@ -6,6 +6,17 @@ etcd
 
 # Set variables common for all OSEv3 hosts
 [OSEv3:vars]
+
+# Global Proxy Configuration
+# These options configure HTTP_PROXY, HTTPS_PROXY, and NOPROXY environment
+# variables for docker and master services.
+openshift_http_proxy=http://proxy.:<port>
+openshift_https_proxy=https://<user>:<password>@<ip_addr>:<port>
+openshift_no_proxy='.hosts.example.com,some-host.com'
+
+
+
+
 # SSH user, this user should allow ssh based auth without requiring a password
 ansible_ssh_user=root
 
