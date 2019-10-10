@@ -112,4 +112,5 @@ okd-cluster-nd2.novomatic.com
 [nodes]
 okd-cluster-nd3.novomatic.com openshift_node_group_name='node-config-combi-node'
 okd-cluster-nd4.novomatic.com openshift_node_group_name='node-config-combi-node'
-
+okd-cluster-nd1.novomatic.com openshift_node_group_name='node-config-all-in-one'
+okd-cluster-nd2.novomatic.com openshift_node_group_name='node-config-all-in-one'
