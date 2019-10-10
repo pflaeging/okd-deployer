@@ -10,19 +10,15 @@ etcd
 # Global Proxy Configuration
 # These options configure HTTP_PROXY, HTTPS_PROXY, and NOPROXY environment
 # variables for docker and master services.
-openshift_http_proxy=http://proxy.:<port>
-openshift_https_proxy=https://<user>:<password>@<ip_addr>:<port>
-openshift_no_proxy='.hosts.example.com,some-host.com'
-
-
-
+openshift_http_proxy=http://proxy.novomatic.com:8080
+openshift_https_proxy=http://proxy.novomatic.com:8080
+openshift_no_proxy='.novomatic.com,.local,127.0.0.1,192.268.2.0/24,localhost'
 
 # SSH user, this user should allow ssh based auth without requiring a password
 ansible_ssh_user=root
 
 # If ansible_ssh_user is not root, ansible_become must be set to true
 #ansible_become=true
-
 
 # OKD type
 openshift_deployment_type=origin
