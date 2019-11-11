@@ -1,0 +1,21 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  labels:
+    app: rook-ceph-mgr
+    rook_cluster: rook-ceph
+  name: rook-ceph-mgr-dashboard
+spec:
+  port:
+    targetPort: dashboard
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: rook-ceph-mgr-dashboard
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: null
