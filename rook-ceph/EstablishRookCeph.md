@@ -25,7 +25,8 @@ You've got access to:
 <https://rook-ceph-mgr-dashboard-rook-ceph.MYFAMOUSCLUSTERNAME/>
 
 - User: admin
-- Password: `oc get secret rook-ceph-dashboard-password -o yaml | grep password:`
+- Password: `oc get secret rook-ceph-dashboard-password -o yaml | grep password: | cut -d " " -f 4 | base64 -d -i -`
+
 
 And you can go into the toolbox:
 

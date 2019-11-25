@@ -5,6 +5,7 @@ metadata:
   namespace: rook-ceph
 spec:
   failureDomain: host
+  deviceClass: dataclass
   replicated:
     size: 1
 ---

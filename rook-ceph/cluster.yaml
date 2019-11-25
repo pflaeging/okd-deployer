@@ -14,7 +14,7 @@ spec:
     allowMultiplePerNode: false
   mgr:
     modules:
-    - name: pg_autoscaler
+    - name: pg_autoscalergr
       enabled: true
   dashboard:
     enabled: true
@@ -41,19 +41,20 @@ spec:
   resources:
   removeOSDsIfOutAndSafeToRemove: false
   storage: # cluster level storage configuration and selection
-    useAllNodes: false
-    useAllDevices: false
-    topologyAware: true
-    deviceFilter:
-    location:
-    config:
-      metadataDevice: "md0" # specify a non-rotational storage so ceph-volume will use it as block db device of bluestore.
-      databaseSizeMB: "1024" # uncomment if the disks are smaller than 100 GB
-      journalSizeMB: "1024"  # uncomment if the disks are 20 GB or smaller
-      osdsPerDevice: "1" # this value can be overridden at the node or device level
-      encryptedDevice: "false" # the default value for this option is "false"
-    directories:
-    - path: /data
+      useAllNodes: true
+      useAllDevices: false
+      topologyAware: true
+      deviceFilter:
+      location:
+      config:
+        metadataDevice: "md0" # specify a non-rotational storage so ceph-volume will use it as block db device of bluestore.
+        databaseSizeMB: "1024" # uncomment if the disks are smaller than 100 GB
+        journalSizeMB: "1024"  # uncomment if the disks are 20 GB or smaller
+        osdsPerDevice: "1" # this value can be overridden at the node or device level
+        encryptedDevice: "false" # the default value for this option is "false"
+      directories:
+      - path: /data
+      - path: /new
   disruptionManagement:
     managePodBudgets: false
     osdMaintenanceTimeout: 30
