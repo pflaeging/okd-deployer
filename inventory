@@ -26,7 +26,8 @@ openshift_disable_check=disk_availability,memory_availability,docker_storage
 
 # hostnames
 openshift_master_default_subdomain=lothlorien.pfpk.pro
-openshift_master_cluster_public_hostname=lothlorien.pfpk.pro
+openshift_master_cluster_public_hostname=public.lothlorien.pfpk.pro
+openshift_master_cluster_hostname=lothlorien.pfpk.pro
 openshift_console_hostname=console.lothlorien.pfpk.pro
 # internal cluster ip ranges
 osm_cluster_network_cidr=10.244.0.0/16
