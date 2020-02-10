@@ -3,6 +3,9 @@
 masters
 nodes
 etcd
+new_masters
+new_nodes
+new_etcd
 
 # Set variables common for all OSEv3 hosts
 [OSEv3:vars]
@@ -14,6 +17,7 @@ ansible_ssh_user=root
 
 # OKD type
 openshift_deployment_type=origin
+deployment_type=origin
 containerized=true
 openshift_enable_unsupported_configurations=True
 
@@ -26,6 +30,7 @@ openshift_disable_check=disk_availability,memory_availability,docker_storage
 # hostnames
 openshift_master_default_subdomain=rohan.pfpk.pro
 openshift_master_cluster_public_hostname=rohan.pfpk.pro
+openshift_master_cluster_hostname=internal.rohan.pfpk.pro
 openshift_console_hostname=console.rohan.pfpk.pro
 # internal cluster ip ranges
 osm_cluster_network_cidr=10.244.0.0/16
@@ -42,6 +47,15 @@ openshift_console_cert=/opt/okd/certs/certificate.crt
 openshift_console_key=/opt/okd/certs/private.key
 openshift_console_ca=/opt/okd/certs/ca_bundle.crt
 
+# Elastic
+openshift_logging_es_nodeselector={'node-role.kubernetes.io/master': 'true'}
+openshift_logging_es_pv_selector={'storage': 'logging'}
+openshift_logging_elasticsearch_cpu_limit=600m
+openshift_logging_elasticsearch_memory_limit=1Gi
+openshift_logging_es_ops_cpu_limit=600m
+openshift_logging_es_ops_memory_limit=1Gi
+openshift_logging_es_cluster_size=1
+openshift_logging_es_ops_cluster_size=1
 
 # Identities
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
@@ -74,7 +88,7 @@ openshift_logging_storage_kind=nfs
 openshift_logging_storage_access_modes=['ReadWriteOnce']
 openshift_logging_storage_host=nfs1.pfpk.pro
 openshift_logging_storage_nfs_directory=/exports
-openshift_logging_storage_volume_name=logging-rohan
+openshift_logging_storage_volume_name=logging-volume
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
@@ -84,14 +98,24 @@ openshift_logging_storage_labels={'storage': 'logging'}
 # host group for masters
 [masters]
 hurin.pfpk.pro
+nain.pfpk.pro
+
+[new_masters]
+
+
+[new_nodes]
+
+[new_etcd]
 
 # host group for etcd
 [etcd]
 hurin.pfpk.pro
+nain.pfpk.pro
 
 # host group for nodes, includes region info
 [nodes]
 cirdan.pfpk.pro openshift_node_group_name='node-config-combi-node'
 frea.pfpk.pro openshift_node_group_name='node-config-combi-node'
 hurin.pfpk.pro openshift_node_group_name='node-config-all-in-one'
+nain.pfpk.pro openshift_node_group_name='node-config-all-in-one'
 
