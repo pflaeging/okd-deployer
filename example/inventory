@@ -3,6 +3,9 @@
 masters
 nodes
 etcd
+new_masters
+new_nodes
+new_etcd
 
 # Set variables common for all OSEv3 hosts
 [OSEv3:vars]
@@ -92,8 +95,11 @@ openshift_logging_storage_volume_name=logging-lothlorien
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
+[new_masters]
 
+[new_nodes]
 
+[new_etcd]
 
 # host group for masters
 [masters]
