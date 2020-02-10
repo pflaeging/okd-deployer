@@ -2,7 +2,7 @@
 
 # The IP address or hostname to access admin UI and registry service.
 # DO NOT use localhost or 127.0.0.1, because Harbor needs to be accessed by external clients.
-hostname: okd-manage.novomatic.com
+hostname: bastion.host.me
 
 # http related config
 http:
@@ -24,7 +24,7 @@ http:
 # The initial password of Harbor admin
 # It only works in first time to install harbor
 # Remember Change the admin password from UI after launching Harbor.
-harbor_admin_password: Novomatic12543
+harbor_admin_password: my123password
 
 # Harbor DB configuration
 database:
@@ -153,11 +153,11 @@ _version: 1.9.0
 # for core and jobservice, and set `http_proxy` and `https_proxy`.
 # Add domain to the `no_proxy` field, when you want disable proxy
 # for some special registry.
-proxy:
-  http_proxy: http://proxy.novomatic.com:8080
-  https_proxy: http://proxy.novomatic.com:8080
-  no_proxy: 127.0.0.1,localhost,.local,.internal,log,db,redis,nginx,core,portal,postgresql,jobservice,registry,registryctl,clair
-  components:
-    - core
-    - jobservice
-    - clair
+# proxy:
+#   http_proxy: http://proxy.myproxyserver.com:8080
+#   https_proxy: http://proxy.myproxyserver.com:8080
+#   no_proxy: 127.0.0.1,localhost,.local,.internal,log,db,redis,nginx,core,portal,postgresql,jobservice,registry,registryctl,clair
+#   components:
+#     - core
+#     - jobservice
+#     - clair
