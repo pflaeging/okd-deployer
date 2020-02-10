@@ -43,7 +43,7 @@ openshift_hosted_router_certificate={"certfile": "/opt/okd-deployer/certs/certif
 # no expiry warning for letsencrypt
 openshift_certificate_expiry_fail_on_warn=False
 # for console
-openshift_console_cert=/opt/okd-deployer/certscertificate.crt
+openshift_console_cert=/opt/okd-deployer/certs/certificate.crt
 openshift_console_key=/opt/okd-deployer/certs/private.key
 openshift_console_ca=/opt/okd-deployer/certs/ca_bundle.crt
 
